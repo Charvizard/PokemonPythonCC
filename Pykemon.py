@@ -132,3 +132,13 @@ gary.use_potion()
 gary.use_potion()
 gary.use_potion()
 gary.use_attack(ash)
+
+#Add more functionality that we haven’t implemented yet. Here is a list of ideas that you might want to try:
+
+#Give Pokémon experience for battling other Pokémon. A Pokémon’s level should increase once it gets enough experience points.
+#Create specific Classes that inherit from the general Pokémon class. 
+#For example, could you create a Charmander class that has all of the functionality of a Pokémon plus some extra features?
+#Let your Pokémon evolve once they hit a certain level.
+#Have more stats associated with a Pokémon. 
+#In the real game, every Pokémon has stats like Speed, Attack, Defense. 
+#All of those stats effect the way Pokemon battle with each other. For example, the Pokémon with the larger Speed stat will go first in the battle
