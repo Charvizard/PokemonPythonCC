@@ -90,17 +90,25 @@ class Trainer() :
             self.current_poke.heal()
 
     def use_attack(self, enemy) : 
-        self.current_poke.attack(enemy.current_poke)
+        if self.current_poke.current_hp <= 0 : 
+            print("This PokeMon cannot attack, it's Knocked Out")
+            self.current_poke.KO = False
+            self.switch_pokemon()
+        else : 
+            self.current_poke.attack(enemy.current_poke)
 
     def switch_pokemon(self) : 
         print("what Pokemon would you like to switch to? 0 to {}".format(len(self.pokemon)))
         print(self.pokemon)
         pokemon = int(input())
+        if self.pokemon[pokemon].current_hp <= 0 :
+            self.pokemon[pokemon].KO = True
+            return print("You cannot switch to this Pokemon, they are knocked out!")
         print("You have switched from {old} to {new} as your active PokeMon".format(old = self.current_poke, new = self.pokemon[pokemon]))
         self.current_poke = self.pokemon[pokemon]
 
 pikachu = Pokemon("Picka", 10, "Electric", Electric, 70, False)
-charmander = Pokemon("Chari", 15, "Fire", Fire, 70, False)
+charmander = Pokemon("Chari", 15, "Fire", Fire, 0, True)
 bulbasaur = Pokemon("Bulbi", 10, "Grass", Grass, 70, False)
 squirtle = Pokemon("Squirti", 12, "Water", Water, 75, False)
 pidgy = Pokemon("Pidgin", 8, "Flying", Flying, 30, False)
