@@ -58,15 +58,16 @@ class Pokemon() :
 
     def heal(self) : 
         heal = self.level * 5
-        if self.current_hp >= self.max_hp : 
-            return print("The Pokemon is already full health!")
-        elif self.current_hp <= 0 : 
+        if self.current_hp + heal >= self.max_hp : 
+            self.current_hp = self.max_hp
+            return print("The Pokemon is full health now!")
+        if self.current_hp <= 0 : 
             self.revive()
             self.current_hp = self.current_hp + heal
-        elif self.current_hp >= 0 : 
+        if self.current_hp >= 0 : 
             self.current_hp = self.current_hp + heal
             return print("{Pokemon} has healed {heal} from that!\nCurrent Health : {CurrentHP}/{MaxHp}".format(Pokemon = self.name, heal = heal, CurrentHP = self.current_hp, MaxHp = self.max_hp))
-        
+
     def ko(self) : 
         self.KO = True
         return print("{} has been knocked out! Take them to the nearest PokeCenter!".format(self.name))
@@ -82,12 +83,16 @@ class Trainer() :
         self.potions = potions
         self.current_poke = pokemons[current_poke]
 
-    def use_potion(self) : 
+    def use_potion(self) :
+        print(self.potions) 
         if self.potions <= 0 : 
             return print("You have no potions left!")
         else : 
-            self.potions = self.potions - 1
-            self.current_poke.heal()
+            if self.current_poke.current_hp >= self.current_poke.max_hp : 
+                return print("The Pokemon is already full health!")
+            else : 
+                self.potions = self.potions - 1
+                self.current_poke.heal()
 
     def use_attack(self, enemy) : 
         if self.current_poke.current_hp <= 0 : 
@@ -121,7 +126,9 @@ nidorino = Pokemon("Nido", 10, "Normal", Normal, 13, False)
 ash = Trainer("Ash", [pikachu, charmander, bulbasaur, squirtle, pidgy, ratata], 5, 1)
 gary = Trainer("Gary", [caterpie, weedle, nidorino], 2, 1)
 
-ash.use_attack(gary)
-ash.switch_pokemon()
-gary.switch_pokemon()
+#ash.use_attack(gary)
+#ash.switch_pokemon()
+gary.use_potion()
+gary.use_potion()
+gary.use_potion()
 gary.use_attack(ash)
